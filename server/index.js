@@ -5,6 +5,8 @@ const {json} = require('body-parser');
 const session = require('express-session');
 const massive = require('massive');
 
+const mainCtrl = require('./controller/mainCtrl');
+
 const {
     CONNECTION_STRING,
     SESSION_SECRET
@@ -29,29 +31,33 @@ app.use(
         resave: false,
         saveUninitialized: false,
         cookie: {
-            maxAge: 525600*60*1000
+            maxAge: 1000
         }
     })
 );
 
-app.get('db')
-.getUserByID(profile.id)
-.then(response=>{
-    if(!response[0]){
-        const { userid, name, age, gender, startweight, goalweight, profilepic, startingbodypic} = profile._json
+// app.get('db')
+// .getUserByID([profile.id])
+// .then(response=>{
+//     if(!response[0]){
+//         const { userid, name, age, gender, startweight, goalweight, profilepic, startingbodypic} = profile._json
 
-app.get('db')
-.createUserByID([userid, name, age, gender, startweight, goalweight, profilepic, startingbodypic])
-.then(created => {
-    return done(null, created[0]);
-});
-    }else{
-        return done(null, response[0])
-    }
-});
+// app.get('db')
+// .createUserByID([userid, name, age, gender, startweight, goalweight, profilepic, startingbodypic])
+// .then(created => {
+//     return done(null, created[0]);
+// });
+//     }else{
+//         return done(null, response[0])
+//     }
+// });
 
 
-
+app.post('/api/login', mainCtrl.login);
+app.post('/api/createpage', mainCtrl.createAccount);
+app.get('/api/userdata/:id', mainCtrl.getUser);
+app.put('/api/userdata/:id', mainCtrl.update);
+app.delete('/api/userdata/:id', mainCtrl.destroy);
 
 
 

@@ -13,7 +13,7 @@ class App extends Component {
     super(props)
 
     this.state = {
-        checkAuth: false,
+        checkAuth: true,
         userid: ''
     };
 }
