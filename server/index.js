@@ -1,15 +1,14 @@
 require ('dotenv').config();
+const express = require('express');
 const cors = require('cors');
 const {json} = require('body-parser');
-const express = require('express');
+const session = require('express-session');
 const massive = require('massive');
-const session = require('express-session')
 
 const {
     CONNECTION_STRING,
     SESSION_SECRET
-
-}  = process.env;
+        }  = process.env;
 
 const app = express();
 
@@ -34,6 +33,26 @@ app.use(
         }
     })
 );
+
+app.get('db')
+.getUserByID(profile.id)
+.then(response=>{
+    if(!response[0]){
+        const { userid, name, age, gender, startweight, goalweight, profilepic, startingbodypic} = profile._json
+
+app.get('db')
+.createUserByID([userid, name, age, gender, startweight, goalweight, profilepic, startingbodypic])
+.then(created => {
+    return done(null, created[0]);
+});
+    }else{
+        return done(null, response[0])
+    }
+});
+
+
+
+
 
 
 app.listen(port, ()=>{
