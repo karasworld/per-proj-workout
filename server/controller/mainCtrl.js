@@ -20,7 +20,7 @@ login:(req, res, next)=>{
     const {session} = req;
     const {email} = req.body;
 
-    const dbInstance = req.app.get('db');
+    const dbInstance = req.app.get('db')
     dbInstance.getUserByID([email])
     .then((response)=>{
         console.log(response);
