@@ -36,28 +36,12 @@ app.use(
     })
 );
 
-// app.get('db')
-// .getUserByID([profile.id])
-// .then(response=>{
-//     if(!response[0]){
-//         const { userid, name, age, gender, startweight, goalweight, profilepic, startingbodypic} = profile._json
-
-// app.get('db')
-// .createUserByID([userid, name, age, gender, startweight, goalweight, profilepic, startingbodypic])
-// .then(created => {
-//     return done(null, created[0]);
-// });
-//     }else{
-//         return done(null, response[0])
-//     }
-// });
-
-
 app.post('/api/login', mainCtrl.login);
 app.post('/api/createpage', mainCtrl.createAccount);
 app.get('/api/userdata/:id', mainCtrl.getUser);
 app.put('/api/userdata/:id', mainCtrl.update);
 app.delete('/api/userdata/:id', mainCtrl.destroy);
+
 
 
 

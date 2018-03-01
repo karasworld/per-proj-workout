@@ -14,19 +14,31 @@ export default class Register extends Component {
         age: '', 
         gender: [], 
         startweight: '', 
-        goalweight: '' 
-        // profilepic: '', 
-        // startingbodypic: ''
+        goalweight: '',
+        // downloadURL: '',
+        // file: '',
+        // imagePreview: ''
       };
+
+
       this.createAccount = this.createAccount.bind(this);
       this.loginUser = this.loginUser.bind(this);
       this.signOutUser = this.signOutUser.bind(this);
       this.handleCreate = this.handleCreate.bind(this);
+      this.handleEmail = this.handleEmail.bind(this);
       this.handleNameInput = this.handleNameInput.bind(this);
       this.handleAgeInput = this.handleAgeInput.bind(this);
       this.handleSelectedGender = this.handleSelectedGender.bind(this);
       this.handleStartWeight = this.handleStartWeight.bind(this);
       this.handleGoalWeight = this.handleGoalWeight.bind(this);
+      // this.handleDownloadURL = this.handleDownloadURL.bind(this);
+      // this.handlePreview = this.handlePreview.bind(this);
+      // this.handleUpload = this.handleUpload.bind(this);
+      
+    }
+
+    handleEmail(e){
+      this.setState({email: e.target.value})
     }
 
     handleNameInput(e){
@@ -44,13 +56,17 @@ export default class Register extends Component {
     handleGoalWeight(e){
       this.setState({goalweight: e.target.value})
     }
+    // handleDownloadURL(e){
+    //   this.setState({downloadURL: e.target.value})
+    // }
     
 
     
     handleCreate(e){
-      const {userid, name, age, gender, startweight, goalweight, profilepic, startingbodypic} = this.state
+      const {userid, name, age, gender, startweight, goalweight, downloadURL, startingbodypic, email} = this.state
+      
       axios
-      .post('/api/createpage', {userid, name, age, gender, startweight, goalweight, profilepic, startingbodypic})
+      .post('/api/createpage', {userid, name, age, gender, startweight, goalweight, downloadURL, startingbodypic, email})
       .then(response => response.data)
       .catch(console.log)
     }
@@ -61,9 +77,8 @@ export default class Register extends Component {
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
         .then((response) => {
-          console.log(response)
-          this.handleCreate()
-          this.setState({ userid: response.uid });
+          console.log(response)          
+          this.setState({ userid: response.uid }, () => this.handleCreate());
 
         });
     }
@@ -72,14 +87,45 @@ export default class Register extends Component {
       firebase
         .auth()
         .signInWithEmailAndPassword(this.state.email, this.state.password)
-        .then((result) => {
-          console.log("hello there", result);
+        .then((result) => { console.log('success hit')
+          axios.post('/api/login', {email: this.state.email})
+          // this.props.history.push(`/Profile/:id`)
         });
     }
   
+  
+
     signOutUser() {
       firebase.auth().signOut();
     }
+
+  //   handlePreview(file){
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //         this.setState({
+  //             file: file[0],
+  //             imagePreview: reader.result
+  //         });
+  //     };
+  //     reader.readAsDataURL(file[0]);
+  // }
+
+  // handleUpload(){
+  //     const storageRef = firebase.storage().ref();
+  //     const uploadTask = storageRef
+  //         .child(`profilePictures/${this.state.file.name}`)
+  //         .put(this.state.file);
+  //     uploadTask.on(
+  //         'state_changed',
+  //         (snapshot) => {
+  //             console.log(snapshot);
+  //         },
+  //         (error) => {},
+  //         (success) => {
+  //             console.log(uploadTask.snapshot.downloadURL);
+  //         },
+  //     );
+  // }
   
     componentDidMount() {
       firebase.auth().onAuthStateChanged((result) => {
@@ -94,9 +140,7 @@ export default class Register extends Component {
           <input
             type="text"
             placeholder="email"
-            onChange={(event) => {
-                this.setState({ email: event.target.value });
-            }}
+            onChange={e => this.handleEmail(e)}
           />
   
           <input
@@ -106,6 +150,11 @@ export default class Register extends Component {
                 this.setState({ password: event.target.value });
             }}
           />
+
+          <div>
+          <button onClick={this.loginUser}>Login</button>
+          </div>
+
           <div>
             <h3>Name</h3>
             <input type="text" onChange={e => this.handleNameInput(e)}/>
@@ -116,7 +165,8 @@ export default class Register extends Component {
           </div>
           <div>
             <h3>Gender</h3>
-            <select onChange={e => this.handleSelectedGender}>
+            <select onChange={e => this.handleSelectedGender(e)}>
+            <option>Select</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
             </select>
@@ -128,11 +178,26 @@ export default class Register extends Component {
           <div>
             <h3>Goal Weight</h3>
             <input type="text" onChange={e => this.handleGoalWeight(e)}/>
-          </div>
-  
+          </div>   
+          {/* <div>
+            <h1>Upload New Body Image</h1>
+
+              {this.state.imagePreview && <img src={this.state.imagePreview}/>}
+
+          <input
+            placeholder="ImageUpload"
+            type="file"
+            onChange={(event)=>{
+                this.handlePreview(event.target.files)
+            }}
+            />
+
+          <button onClick={this.handleUpload}> Upload Image </button>
+
+          </div>        */}
+          <div>
           <button onClick={this.createAccount}> Create Account </button>
-          <button onClick={this.loginUser}>Login</button>
-          <button onClick={this.signOutUser}>Sign Out</button>
+          </div>
         </div>
       );
     }

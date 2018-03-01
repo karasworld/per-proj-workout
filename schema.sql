@@ -6,7 +6,9 @@ CREATE TABLE users(
     start weight varchar(4),
     goal weight varchar(3),
     profile pic text,
-    starting body pic text
+    starting body pic text,
+    userid text,
+    email text
 )
 
 CREATE TABLE routine(
