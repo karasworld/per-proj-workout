@@ -42,6 +42,7 @@ app.get('/api/userdata/:id', mainCtrl.getUser);
 app.put('/api/userdata/:id', mainCtrl.update);
 app.delete('/api/userdata/:id', mainCtrl.destroy);
 
+app.get('/api/exerciselist/:num', mainCtrl.getExercises);
 
 
 

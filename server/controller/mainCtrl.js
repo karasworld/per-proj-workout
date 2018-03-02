@@ -1,3 +1,5 @@
+const axios = require('axios')
+
 module.exports = {
 
 
@@ -20,22 +22,16 @@ login:(req, res, next)=>{
     const {session} = req;
     const {email} = req.body;
 
-    const dbInstance = req.app.get('db')
+    const dbInstance = req.app.get('db');
     dbInstance.getUserByID([email])
     .then((response)=>{
         console.log(response);
          res.status(200).send(response)
         req.session.user = response.data})
     .catch((err)=>res.status(500).send(err, "You're in the wrong neighborhood!"));
-
-    // if(user){
-    //     session.user.email = user.email;
-    //     res.status(200).send(session.user);
-    // }else{
-    //     res.status(500).send("You're in the wrong neighborhood!")
-    // }
 },
 
+//User
 getUser:(req, res, next)=>{
     
     const dbInstance = req.app.get('db');
@@ -61,10 +57,17 @@ destroy:(req, res, next)=>{
     dbInstance.deleteUser([params.id])
     .then(()=> res.status(200).send())
     .catch(()=>res.status(500).send());
+},
+
+
+
+getExercises:(req, res, next)=>{
+    axios
+    .get(`https://wger.de/api/v2/exercise/?language=2&muscles=${req.params.num}`)
+    .then(response=>{
+        console.log(response.data)
+        res.status(200).json(response.data)
+    }).catch(err=>console.lof(err))
 }
-
-// grabData:(req, res, next)=>{
-
-// }
 
 }

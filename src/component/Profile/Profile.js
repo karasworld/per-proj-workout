@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import firebase from '../../fire';
 import ImageUpload from '../ImageUpload/ImageUpload';
+import Muscles from '../Muscles/Muscles';
+// import Exercises from '../Exercises/Exercises';
 
 export default class Profile extends Component{
     
@@ -14,8 +16,9 @@ constructor(props){
         gender: '',
         startweight: '',
         goalweight: '',
-        profilepic: ''
-        
+        profilepic: '',
+        // exercise: [],
+        // selectedExercises: []
 
     }
 
@@ -26,6 +29,7 @@ constructor(props){
     this.handleActiveGoalWeight = this.handleActiveGoalWeight.bind(this);
     this.handleProfilePicture = this.handleProfilePicture.bind(this);
     this.signOutUser = this.signOutUser.bind(this);
+    // this.selectExercise = this.selectExercise.bind(this);
     
 }
 
@@ -42,7 +46,28 @@ signOutUser() {
             console.log(response)
             this.setState({profilepic: response.data[0].profilepic, name:response.data[0].name, age:response.data[0].age, gender:response.data[0].gender, startweight:response.data[0].startweight, goalweight:response.data[0].goalweight})})
 
-}
+        // axios
+        // .get('/api/exerciselist')
+        // .then(response =>{
+        //     this.setState({exercise: response.data.results});
+        // });
+
+    }
+
+    // selectExercise(){
+    //     const selExercise = {
+    //         exercise: this.state.exercise
+    //     };
+
+    //     axios
+    //     .post('/api/exerciselist', selExercise)
+    //     .then(response=>{
+    //         console.log(response)
+    //         this.setState({exercise: response.data});
+    //     })
+    //     .catch(e=>alert(e));
+    // }
+
 
 handelActiveName(e){
     this.setState({name: e.target.value})
@@ -88,6 +113,22 @@ handleProfilePicture(e){
                 <div>
                 <button onClick={this.signOutUser}>Sign Out</button>
                 </div>
+                <div>
+                    <Muscles/>
+                </div>
+                {/* <div>
+                    {this.state.exercise.length > 0 &&
+                    this.state.exercise.map((val, i)=>{
+                        console.log(val)
+                     return   (
+                        <Exercises
+                            key={i}
+                            selExercise={val}
+                            index={i}
+                            />
+                    )})}
+                    
+                </div> */}
                 {/* <div>
                     <ImageUpload/>
                 </div> */}
