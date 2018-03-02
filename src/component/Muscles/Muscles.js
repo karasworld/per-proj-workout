@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './Muscles.css'
 import axios from 'axios';
+import ExerciseGroupComponent from '../ExerciseGroupComponent/ExerciseGroupComponent'
 
 export default class Muscles extends Component{
     constructor(props){
@@ -9,7 +10,8 @@ export default class Muscles extends Component{
         this.state = {
             setList: [],
             exercises: [],
-            selectedExercise: []
+            selectedExercise: [],
+            exercise: []
         }
         this.setExercise = this.setExercise.bind(this);
         // this.updateShoulders = this.updateShoulders.bind(this);
@@ -32,14 +34,7 @@ export default class Muscles extends Component{
         .catch(e=>alert(e));
     }
 
-    // updateShoulders(selectedShoulder){
-    //     console.log('working shoulders!')
-    //     const shouldersUpdated= {
-    //         selectedShoulder
-    //     }
-    //     axios
-    //     .put
-    // }
+    
 
     handleSelectedExercise(num){
         this.setState({selectedExercise: num});  axios
@@ -54,6 +49,9 @@ export default class Muscles extends Component{
    //add Female/Male body images
 
     render(){
+        var shownExercise = this.state.exercise.map((val, i)=>{
+            return <ExerciseGroupComponent workouts={val} />
+        })
         return(
             <div>
                 <div>
@@ -63,43 +61,44 @@ export default class Muscles extends Component{
                     <h2>Front Muscles</h2>
                    { /*use onClick event to make exercises populate*/}
                     <ul>
-                        <li className="muscles_sholders" onClick={()=>this.handleSelectedExercise(2)} ><p>Anterior deltoid (Shoulders)</p>
+                        <li className="muscles_shoulders" onClick={()=>this.handleSelectedExercise(2)} ><p>Anterior deltoid (Shoulders)</p>
                         </li>
-                        <li><p>Biceps brachii (Biceps)</p>
+                        <li className="muscles_biceps" onClick={()=>this.handleSelectedExercise(1)} ><p>Biceps brachii (Biceps)</p>
                         </li>
-                        <li><p>Brachialis (Inner/Outer Biceps)</p>
+                        <li className="muscles_in_out_biceps" onClick={()=>this.handleSelectedExercise(13)} ><p>Brachialis (Inner/Outer Biceps)</p>
                         </li>
-                        <li><p>Obliquus externus abdominis (Obliques)</p>
+                        <li className="muscles_obliques" onClick={()=>this.handleSelectedExercise(14)} ><p>Obliquus externus abdominis (Obliques)</p>
                         </li>
-                        <li><p>Pectoralis major (Pecks)</p>
+                        <li className="muscles_pecks" onClick={()=>this.handleSelectedExercise(4)} ><p>Pectoralis major (Pecks)</p>
                         </li>
-                        <li><p>Quadriceps femoris (Quads)</p>
+                        <li className="muscles_quads" onClick={()=>this.handleSelectedExercise(10)} ><p>Quadriceps femoris (Quads)</p>
                         </li>
-                        <li><p>Rectus abdominis (Abs)</p>
+                        <li className="muscles_abs" onClick={()=>this.handleSelectedExercise(6)} ><p>Rectus abdominis (Abs)</p>
                         </li>
-                        <li><p>Serratus anterior (Lats)</p>
+                        <li className="muscles_lats" onClick={()=>this.handleSelectedExercise(3)} ><p>Serratus anterior (Lats)</p>
                         </li>
                     </ul>                    
                 </div>
                 <div>
                     <h2>Back Muscles</h2>
                     <ul>
-                    <li><p>Biceps femoris (Hamstrings)</p>
+                    <li className="muscles_hamstrings" onClick={()=>this.handleSelectedExercise(11)} ><p>Biceps femoris (Hamstrings)</p>
                         </li>
-                        <li><p>Gastrocnemius (Calves)</p>
+                        <li className="muscles_calves" onClick={()=>this.handleSelectedExercise(7)} ><p>Gastrocnemius (Calves)</p>
                         </li>
-                        <li><p>Gluteus maximus(Butt)</p>
+                        <li className="muscles_butt" onClick={()=>this.handleSelectedExercise(8)} ><p>Gluteus maximus(Butt)</p>
                         </li>
-                        <li><p>Latissimus dorsi (Lats)</p>
+                        <li className="muscles_back_lats" onClick={()=>this.handleSelectedExercise(12)} ><p>Latissimus dorsi (Lats)</p>
                         </li>
-                        <li><p>Soleus(Lower Calves)</p>
+                        <li className="muscles_low_calves" onClick={()=>this.handleSelectedExercise(15)} ><p>Soleus(Lower Calves)</p>
                         </li>
-                        <li><p>Trapezius(Trapes)</p>
+                        <li className="muscles_trapes" onClick={()=>this.handleSelectedExercise(9)} ><p>Trapezius(Trapes)</p>
                         </li>
-                        <li><p>Triceps brachii(Triceps)</p>
+                        <li className="muscles_triceps" onClick={()=>this.handleSelectedExercise(5)} ><p>Triceps brachii(Triceps)</p>
                         </li>
                     </ul>
                 </div>
+                {shownExercise}
             </div>
         )
     }
