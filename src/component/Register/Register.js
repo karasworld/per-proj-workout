@@ -31,6 +31,7 @@ export default class Register extends Component {
       this.handleSelectedGender = this.handleSelectedGender.bind(this);
       this.handleStartWeight = this.handleStartWeight.bind(this);
       this.handleGoalWeight = this.handleGoalWeight.bind(this);
+      
       // this.handleDownloadURL = this.handleDownloadURL.bind(this);
       // this.handlePreview = this.handlePreview.bind(this);
       // this.handleUpload = this.handleUpload.bind(this);
@@ -71,6 +72,8 @@ export default class Register extends Component {
       .catch(console.log)
     }
 
+    
+
 
     createAccount() {
       firebase
@@ -87,7 +90,7 @@ export default class Register extends Component {
       firebase
         .auth()
         .signInWithEmailAndPassword(this.state.email, this.state.password)
-        .then((result) => { console.log('success hit')
+        .then((result) => { console.log('success hit', result)
           axios.post('/api/login', {email: this.state.email})
           // this.props.history.push(`/Profile/:id`)
         });
@@ -166,9 +169,9 @@ export default class Register extends Component {
           <div>
             <h3>Gender</h3>
             <select onChange={e => this.handleSelectedGender(e)}>
-            <option>Select</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
+              <option>Select</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
             </select>
           </div>
           <div>

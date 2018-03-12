@@ -5,6 +5,8 @@ const {json} = require('body-parser');
 const session = require('express-session');
 const massive = require('massive');
 
+const checkForSession = require('./middlewares/checkForSession');
+
 const mainCtrl = require('./controller/mainCtrl');
 
 const {
@@ -30,16 +32,15 @@ app.use(
         secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: false,
-        cookie: {
-            maxAge: 1000
-        }
+        
     })
 );
+// app.use(checkForSession);
 
 app.post('/api/login', mainCtrl.login);
 app.post('/api/createpage', mainCtrl.createAccount);
 app.get('/api/userdata/:id', mainCtrl.getUser);
-app.put('/api/userdata/:id', mainCtrl.update);
+app.put('/api/userdata/', mainCtrl.update);
 app.delete('/api/userdata/:id', mainCtrl.destroy);
 
 app.get('/api/exerciselist/:num', mainCtrl.getExercises);

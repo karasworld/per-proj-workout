@@ -1,24 +1,25 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import firebase from '../../fire';
-import ImageUpload from '../ImageUpload/ImageUpload';
+// import ImageUpload from '../ImageUpload/ImageUpload';
 import Muscles from '../Muscles/Muscles';
-// import Exercises from '../Exercises/Exercises';
+
 
 export default class Profile extends Component{
     
 constructor(props){
     super(props)
     this.state={
-        user: [],
+        userid: [],
         name: '',
+        nameEdit: '',
         age: '',
+        ageEdit: '',
         gender: '',
+        genderEdit: [],
         startweight: '',
         goalweight: '',
-        profilepic: '',
-        // exercise: [],
-        // selectedExercises: []
+        mode:'view'
 
     }
 
@@ -29,45 +30,61 @@ constructor(props){
     this.handleActiveGoalWeight = this.handleActiveGoalWeight.bind(this);
     this.handleProfilePicture = this.handleProfilePicture.bind(this);
     this.signOutUser = this.signOutUser.bind(this);
-    // this.selectExercise = this.selectExercise.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleAgeChange = this.handleAgeChange.bind(this);
+    this.handleGenderChange = this.handleGenderChange.bind(this);
+    this.updateUser = this.updateUser.bind(this);
+    this.deactivate = this.deactivate.bind(this);
     
+    this.saveProfile = this.saveProfile.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
 }
 
+updateUser(userid, name, age, gender){
+    
+    const userUpdated={
+        userid,
+        name,
+        age,
+        gender
+    }
+    console.log(userUpdated)
+    axios
+    .put('/api/userdata', userUpdated)
+    .then(response=>{
+        console.log(response.data)
+        this.setState({userid: response.data.userid});
+    })
+    .catch(console.log);
+    }
 
+deactivate(id){
+    axios
+    .delete('/api/userdata/'+id)
+    .then(response=>{
+        this.setState({userid: response.id})
+    })
+    .catch(console.log);
+    }
 
 signOutUser() {
     firebase.auth().signOut();
   }
 
     componentDidMount(){
+        console.log(this.props.userid)
+        
         axios
         .get(`/api/userdata/${this.props.userid}`)
         .then(response =>{
             console.log(response)
-            this.setState({profilepic: response.data[0].profilepic, name:response.data[0].name, age:response.data[0].age, gender:response.data[0].gender, startweight:response.data[0].startweight, goalweight:response.data[0].goalweight})})
+            this.setState({name:response.data[0].name, age:response.data[0].age, gender:response.data[0].gender, startweight:response.data[0].startweight, goalweight:response.data[0].goalweight})})
 
-        // axios
-        // .get('/api/exerciselist')
-        // .then(response =>{
-        //     this.setState({exercise: response.data.results});
-        // });
+       
 
     }
 
-    // selectExercise(){
-    //     const selExercise = {
-    //         exercise: this.state.exercise
-    //     };
-
-    //     axios
-    //     .post('/api/exerciselist', selExercise)
-    //     .then(response=>{
-    //         console.log(response)
-    //         this.setState({exercise: response.data});
-    //     })
-    //     .catch(e=>alert(e));
-    // }
-
+    
 
 handelActiveName(e){
     this.setState({name: e.target.value})
@@ -87,22 +104,110 @@ handleActiveGoalWeight(e){
 handleProfilePicture(e){
     this.setState({profilepic: e.target.value})
 }
+handleNameChange(e){
+    this.setState({nameEdit:e.target.value});
+}
+handleAgeChange(e){
+    this.setState({ageEdit:e.target.value});
+}
+handleGenderChange(e){
+    this.setState({genderEdit:e.target.value});
+}
+saveProfile(){
+    this.setState({name: this.state.nameEdit, age: this.state.ageEdit, gender: this.state.genderEdit, mode: 'view'});
+}
+handleEdit(){
+    this.setState({mode: 'edit'});
+}
 
-    render(){
-        
+    renderNameInputField(){
+        if(this.state.mode === 'view'){
+            return
+                <div></div>;
+    }else{
+        return(
+            <p>
+            <input
+            onChange={this.handleNameChange}
+            value={this.state.nameEdit}
+            placeholder={this.state.name}
+            />
+            </p>
+        );
+    }
+}
+    
+    renderAgeInputField(){
+        if(this.state.mode === 'view'){
+            return
+                <div></div>;
+    }else{
+        return(
+            <p>
+            <input
+            onChange={this.handleAgeChange}
+            value={this.state.ageEdit}
+            placeholder={this.state.age}
+            />
+            </p>
+        );
+    }
+}
+
+    renderGenderInputField(){
+        if(this.state.mode === 'view'){
+            return
+                <div></div>;
+    }else{
+        return(
+            <p>
+            <select onChange={e => this.handleGenderChange(e)}>
+                <option>Select</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+            </p>
+        );
+    }
+}
+
+    renderProfileButton(){
+        if(this.state.mode === 'view'){
+            return(
+                <button onClick={this.handleEdit}>
+                    Edit Profile
+                </button>
+            );
+        }else{
+            return(
+                <button onClick={this.saveProfile}>
+                    Save
+                </button>
+            );
+        }
+    }
+
+    render(){      
+         
         return(
             <div>
                 <div>
                 Profile Picture: {this.state.profilepic}
                 </div>
                 <div>
-                name: {this.state.name}
+                    <p>Name: {this.state.name}</p>                     
+                    <div>{this.renderNameInputField()}</div>
+                    
                 </div>
                 <div>
-                age: {this.state.age}
+                    <p>Age: {this.state.age}</p>
+                   <div>{this.renderAgeInputField()}</div>
+                    
                 </div>
                 <div>
-                gender: {this.state.gender}
+                <p>gender: {this.state.gender}</p>
+                    <div>{this.renderGenderInputField()}</div>
+                    
                 </div>
                 <div>
                 start weight: {this.state.startweight}
@@ -111,24 +216,18 @@ handleProfilePicture(e){
                 goal weight: {this.state.goalweight}
                 </div>
                 <div>
+                {this.renderProfileButton()}
+                <button onClick={()=>this.updateUser(this.props.userid, this.state.name, this.state.age, this.state.gender)}>
+                Update Profile
+                </button>
+                </div>
+                <div>
                 <button onClick={this.signOutUser}>Sign Out</button>
                 </div>
                 <div>
                     <Muscles/>
                 </div>
-                {/* <div>
-                    {this.state.exercise.length > 0 &&
-                    this.state.exercise.map((val, i)=>{
-                        console.log(val)
-                     return   (
-                        <Exercises
-                            key={i}
-                            selExercise={val}
-                            index={i}
-                            />
-                    )})}
-                    
-                </div> */}
+                
                 {/* <div>
                     <ImageUpload/>
                 </div> */}
