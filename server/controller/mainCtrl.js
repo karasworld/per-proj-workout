@@ -28,9 +28,10 @@ login:(req, res, next)=>{
     dbInstance.getUserByEmail([email])
     .then((response)=>{
         console.log(response, "in login respnse");
+        session.user = response
          res.status(200).send(response)
          //check respnse in console.log, set userid to sessions to get the update sql working.LOOK AT NODE 3*****req.session.userid
-        req.session.user = response.user})
+       })
     .catch((err)=>res.status(500).send(err, "You're in the wrong neighborhood!"));
 },
 
@@ -58,24 +59,26 @@ update:(req, res, next)=>{
     .catch(console.log);
 },
 
-destroy:(req, res, next)=>{
-    const dbInstance = req.app.get('db');
-    const {params} = req;
+signOut:(req, res, next) => {
+    console.log("sessionintact", req.session)
+    req.session.destroy();
+    console.log("session destroyed", req.session)
+    res.status(200).json("Session Destroyed");
+  },
 
-    dbInstance.deleteUser([params.id])
-    .then(()=> res.status(200).send())
-    .catch(()=>res.status(500).send());
-},
+// Might implement later
+
+// destroy:(req, res, next)=>{
+//     const dbInstance = req.app.get('db');
+//     const {params} = req;
+
+//     dbInstance.deleteUser([params.id])
+//     .then(()=> res.status(200).send())
+//     .catch(()=>res.status(500).send());
+// },
 
 
 
-getExercises:(req, res, next)=>{
-    axios
-    .get(`https://wger.de/api/v2/exercise/?language=2&muscles=${req.params.num}`)
-    .then(response=>{
-        
-        res.status(200).json(response.data)
-    }).catch(err=>console.lof(err))
-}
+
 
 }

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 import firebase from '../../fire';
 // import ImageUpload from '../ImageUpload/ImageUpload';
 import Muscles from '../Muscles/Muscles';
@@ -69,6 +70,15 @@ deactivate(id){
 
 signOutUser() {
     firebase.auth().signOut();
+
+    axios
+    .get('/api/signout')
+    .then(response=>{
+        console.log("Signed Out");
+        this.props.history.push("/");
+    })
+    .catch(error=>{console.log(error)
+    })    
   }
 
     componentDidMount(){
@@ -222,7 +232,9 @@ handleEdit(){
                 </button>
                 </div>
                 <div>
+                <Link to= "/">
                 <button onClick={this.signOutUser}>Sign Out</button>
+                </Link>
                 </div>
                 <div>
                     <Muscles/>

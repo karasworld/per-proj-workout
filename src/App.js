@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import firebase from './fire';
-import Home from './component/Home/Home';
+
 import Routes from './routes';
 
 

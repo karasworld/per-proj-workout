@@ -9,8 +9,13 @@ CREATE TABLE users(
     starting body pic text,
     userid text,
     email text
-)
+);
 
 CREATE TABLE routine(
-
-)
+    exidprime serial,
+    exerciseid int NOT NULL,
+    exercisename varchar(25),
+    id int,
+    PRIMARY KEY (exidprime),
+    FOREIGN KEY (id) REFERENCES users(id)
+);

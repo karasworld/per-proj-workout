@@ -23,7 +23,6 @@ export default class Register extends Component {
 
       this.createAccount = this.createAccount.bind(this);
       this.loginUser = this.loginUser.bind(this);
-      this.signOutUser = this.signOutUser.bind(this);
       this.handleCreate = this.handleCreate.bind(this);
       this.handleEmail = this.handleEmail.bind(this);
       this.handleNameInput = this.handleNameInput.bind(this);
@@ -98,9 +97,7 @@ export default class Register extends Component {
   
   
 
-    signOutUser() {
-      firebase.auth().signOut();
-    }
+    
 
   //   handlePreview(file){
   //     const reader = new FileReader();
