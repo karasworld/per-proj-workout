@@ -10,14 +10,18 @@ const checkForSession = require('./middlewares/checkForSession');
 const mainCtrl = require('./controller/mainCtrl');
 const routineCtrl = require('./controller/routineCtrl');
 
+
+
 const {
     CONNECTION_STRING,
     SESSION_SECRET
-        }  = process.env;
+        }  = process.env; 
 
 const app = express();
 
-const port = 3001;
+const port = process.env.PORT || 3001;
+
+app.use(express.static(`${__dirname}/../build`))
 
 app.use(json());
 app.use(cors());
@@ -61,6 +65,11 @@ app.put('/api/userRoutine/:id', routineCtrl.add);
 app.delete('/api/removeRoutine/:id', routineCtrl.delete);
 //removes specific routine data from db
 
+const path = require('path');
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../build/index.html'));
+})
 
 app.listen(port, ()=>{
     console.log(`Here I go again on my port ${port}, going down the only port I've ever known.`);
