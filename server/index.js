@@ -42,15 +42,24 @@ app.use(
 // app.use(checkForSession);
 
 app.post('/api/login', mainCtrl.login);
+//handles loggin in
 app.post('/api/createpage', mainCtrl.createAccount);
+//sets up user data in db
 app.get('/api/userdata/:id', mainCtrl.getUser);
+//shows user data on client side
 app.put('/api/userdata/', mainCtrl.update);
+//updates the db with new data
 app.get('/api/signout', mainCtrl.signOut)
+//handles signing out of profile
+
 // app.delete('/api/userdata/:id', mainCtrl.destroy);
 
 app.get('/api/exerciselist/:num', routineCtrl.getExercises);
+//populates the client side with the exercise list
 app.put('/api/userRoutine/:id', routineCtrl.add);
-app.delete('/api/removeRoutine', routineCtrl.delete);
+//handles updating the db and client side
+app.delete('/api/removeRoutine/:id', routineCtrl.delete);
+//removes specific routine data from db
 
 
 app.listen(port, ()=>{

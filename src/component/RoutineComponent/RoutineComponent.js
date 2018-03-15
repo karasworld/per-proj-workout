@@ -24,7 +24,7 @@ export default class RoutineComponent extends Component{
                 <button>Previous</button> */}
                     </div>
                     <div>
-                        <button onClick={()=>this.props.delete(this.props.workouts.id)}>
+                        <button onClick={()=>this.props.delete(this.props.workouts.exidprime)}>
                         Remove
                         </button>
                     </div>

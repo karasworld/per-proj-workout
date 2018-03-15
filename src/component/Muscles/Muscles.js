@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import './Muscles.css'
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 import ExerciseGroupComponent from '../ExerciseGroupComponent/ExerciseGroupComponent';
 import ExerciseInfo from '../ExerciseInfo/ExerciseInfo';
 import RoutineComponent from '../RoutineComponent/RoutineComponent';
+import WorkoutStart from '../WorkoutStart/WorkoutStart';
 
 export default class Muscles extends Component{
     constructor(props){
@@ -16,14 +18,15 @@ export default class Muscles extends Component{
             exercise: [],
             info: '',
             routine: [],
-            selectedRoutine: []
-            
+            selectedRoutine: [],
+            mode: 'view'
         };
 
         this.setExercise = this.setExercise.bind(this);
         this.handleSelectedMuscle = this.handleSelectedMuscle.bind(this)
         this.exerInfo = this.exerInfo.bind(this);
         this.addToRoutine = this.addToRoutine.bind(this);
+        this.delete = this.delete.bind(this);
     }
 
     handleSelectedMuscle(num){
@@ -70,36 +73,54 @@ export default class Muscles extends Component{
         axios
         .delete(`/api/removeRoutine/${id}`)
         .then(response=>{
+            console.log('delete response', response)
             this.setState({routine: response.data});
         })
         .catch(console.log);
     }
 
-   
+    renderSetTitle(){
+        if(this.state.mode === 'view'){
+            return
+                <div></div>;
+        }else{
+            return(
+                <div>
+                    
+                    <h2 onChange={this.handleChange}>SETLIST</h2>
+                </div>
+            );
+        }
+    }
+
+    handleChange(){
+        this.setState({mode: 'edit'});
+    }
+
     
 
    //add Female/Male body images
 
     render(){
-        var shownExercise = this.state.exercise.map((val, i)=>{
+        var shownExercise = this.state.exercise.length > 0 && this.state.exercise.map((val, i)=>{
             return <ExerciseGroupComponent 
                     workouts={val} 
                     exerInfo={this.exerInfo}
                     addToRoutine={this.addToRoutine}
                     />
         })
-
-        var selectedInfo = this.state.info && this.state.exercise.filter((val)=>val.id===this.state.info).map((val,i)=>{
+        
+        var selectedInfo = this.state.exercise.length > 0 && this.state.info && this.state.exercise.filter((val)=>val.id===this.state.info).map((val,i)=>{
             return <ExerciseInfo info={val} />
         })
-        console.log(this.state.routine)
-        var selectedRoutine = this.state.routine && this.state.routine.map((val)=>{
-            return <RoutineComponent                    
-                    workouts={val}
-                    delete={this.delete}
-                    />
+        
+        var selectedRoutine = this.state.routine.length > 0  && (this.state.routine.map((val)=>{
+                                                                 return <RoutineComponent                    
+                                                                            workouts={val}
+                                                                            delete={this.delete}
+                                                                         />
 
-        }
+        })
     )
         
         
@@ -112,7 +133,7 @@ export default class Muscles extends Component{
                    <h6>click on muscle for list</h6>
                 </div>
                 <div>
-                    <h2>Front Muscles</h2>
+                    <h4>Front Muscles</h4>
                    { /*use onClick event to make exercises populate*/}
                     <ul>
                         <li className="muscles_shoulders" onClick={()=>this.handleSelectedMuscle(2)} ><p>Shoulders (Anterior deltoid)</p>
@@ -134,7 +155,7 @@ export default class Muscles extends Component{
                     </ul>                    
                 </div>
                 <div>
-                    <h2>Back Muscles</h2>
+                    <h4>Back Muscles</h4>
                     <ul>
                     <li className="muscles_hamstrings" onClick={()=>this.handleSelectedMuscle(11)} ><p>Hamstrings (Biceps femoris)</p>
                         </li>
@@ -153,18 +174,23 @@ export default class Muscles extends Component{
                     </ul>
                 </div>
                 <div>
-                    <h2>Exercise List</h2>
-                    <h4>SELECT AN EXERCISE</h4>
-                    <h6>click on Exercise Name for directions</h6>
+                    {this.state.exercise.length > 0 && <h3>Exercise List</h3>}
+                    {this.state.exercise.length > 0 &&<h4>SELECT AN EXERCISE</h4>}
+                    {this.state.exercise.length > 0 && <h6>click on Exercise Name for directions</h6>}
                     {shownExercise}
                 </div>
                 <div>
-                    <h3>Instructions</h3>
+                    {this.state.exercise.length > 0 && <h3>Instructions</h3>}
                     {selectedInfo}
                 </div>
                 <div>
-                    <h3>SETLIST</h3>
+                    {this.state.routine.length > 0 && <h3>SetList</h3>}
                     {selectedRoutine}
+                </div>
+                <div>
+                    <Link to='/start'>
+                    {this.state.routine.length > 0 && <button>Start Workout</button>}
+                    </Link>
                 </div>
             </div>
         )

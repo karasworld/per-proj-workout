@@ -32,10 +32,11 @@ module.exports = {
 
     delete:(req, res, next)=>{
         const dbInstance = req.app.get('db');
-        const {params} = req;
+        const {params, session} = req;
+        console.log(req.session);
 
-        dbInstance.removeExercise([params.user[0].id])
-        .then(()=> res.status(200).send())
+        dbInstance.removeExercise([params.id, session.user[0].id])
+        .then((user)=> res.status(200).send(user))
         .catch(()=>res.status(500).send());
     }
 
