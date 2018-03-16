@@ -39,11 +39,10 @@ login:(req, res, next)=>{
 getUser:(req, res, next)=>{
     
     const dbInstance = req.app.get('db');
-    console.log(req.session, "in getUser")
 
-    dbInstance.getUserByID([req.params.id])
+    dbInstance.getUserbyID([req.params.id])
     .then(user => res.status(200).send(user))
-    .catch(()=> res.status(500).send());
+    .catch((err)=> { console.log(err); res.status(500).send() });
 },
 
 update:(req, res, next)=>{
