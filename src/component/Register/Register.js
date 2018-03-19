@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import firebase from '../../fire';
 import axios from 'axios';
+import './Register.css';
 
 export default class Register extends Component {
     constructor(props) {
@@ -15,9 +16,6 @@ export default class Register extends Component {
         gender: [], 
         startweight: '', 
         goalweight: '',
-        // downloadURL: '',
-        // file: '',
-        // imagePreview: ''
       };
 
 
@@ -30,11 +28,7 @@ export default class Register extends Component {
       this.handleSelectedGender = this.handleSelectedGender.bind(this);
       this.handleStartWeight = this.handleStartWeight.bind(this);
       this.handleGoalWeight = this.handleGoalWeight.bind(this);
-      
-      // this.handleDownloadURL = this.handleDownloadURL.bind(this);
-      // this.handlePreview = this.handlePreview.bind(this);
-      // this.handleUpload = this.handleUpload.bind(this);
-      
+            
     }
 
     handleEmail(e){
@@ -56,10 +50,7 @@ export default class Register extends Component {
     handleGoalWeight(e){
       this.setState({goalweight: e.target.value})
     }
-    // handleDownloadURL(e){
-    //   this.setState({downloadURL: e.target.value})
-    // }
-    
+       
 
     
     handleCreate(e){
@@ -96,36 +87,6 @@ export default class Register extends Component {
     }
   
   
-
-    
-
-  //   handlePreview(file){
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //         this.setState({
-  //             file: file[0],
-  //             imagePreview: reader.result
-  //         });
-  //     };
-  //     reader.readAsDataURL(file[0]);
-  // }
-
-  // handleUpload(){
-  //     const storageRef = firebase.storage().ref();
-  //     const uploadTask = storageRef
-  //         .child(`profilePictures/${this.state.file.name}`)
-  //         .put(this.state.file);
-  //     uploadTask.on(
-  //         'state_changed',
-  //         (snapshot) => {
-  //             console.log(snapshot);
-  //         },
-  //         (error) => {},
-  //         (success) => {
-  //             console.log(uploadTask.snapshot.downloadURL);
-  //         },
-  //     );
-  // }
   
     componentDidMount() {
       firebase.auth().onAuthStateChanged((result) => {
@@ -135,6 +96,12 @@ export default class Register extends Component {
   
     render() {
       return (
+        <div className="reg-main-body">
+
+{/*Login*/}
+        <div>
+          <h3>Login or Create a Profile</h3>
+        </div>
         <div>
           {this.state.userid && <h1>{this.state.userid}</h1>}
           <input
@@ -154,6 +121,8 @@ export default class Register extends Component {
           <div>
           <button onClick={this.loginUser}>Login</button>
           </div>
+
+{/*profile creation*/}
 
           <div>
             <h3>Name</h3>
@@ -179,25 +148,13 @@ export default class Register extends Component {
             <h3>Goal Weight</h3>
             <input type="text" onChange={e => this.handleGoalWeight(e)}/>
           </div>   
-          {/* <div>
-            <h1>Upload New Body Image</h1>
-
-              {this.state.imagePreview && <img src={this.state.imagePreview}/>}
-
-          <input
-            placeholder="ImageUpload"
-            type="file"
-            onChange={(event)=>{
-                this.handlePreview(event.target.files)
-            }}
-            />
-
-          <button onClick={this.handleUpload}> Upload Image </button>
-
-          </div>        */}
           <div>
-          <button onClick={this.createAccount}> Create Account </button>
+            <button onClick={this.createAccount}> Create Account </button>
           </div>
+        </div>
+        <div>
+          <h4>"Suck it up now, or Suck it in later."</h4>
+        </div>
         </div>
       );
     }

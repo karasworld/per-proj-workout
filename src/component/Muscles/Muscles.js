@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import ExerciseGroupComponent from '../ExerciseGroupComponent/ExerciseGroupComponent';
 import ExerciseInfo from '../ExerciseInfo/ExerciseInfo';
 import RoutineComponent from '../RoutineComponent/RoutineComponent';
-import WorkoutStart from '../WorkoutStart/WorkoutStart';
+
 
 export default class Muscles extends Component{
     constructor(props){
@@ -173,25 +173,21 @@ export default class Muscles extends Component{
                         </li>
                     </ul>
                 </div>
-                <div>
+                <div className="musc-exer-list">
                     {this.state.exercise.length > 0 && <h3>Exercise List</h3>}
                     {this.state.exercise.length > 0 &&<h4>SELECT AN EXERCISE</h4>}
                     {this.state.exercise.length > 0 && <h6>click on Exercise Name for directions</h6>}
                     {shownExercise}
                 </div>
-                <div>
+                <div className="musc-exer-info">
                     {this.state.exercise.length > 0 && <h3>Instructions</h3>}
                     {selectedInfo}
                 </div>
-                <div>
-                    {this.state.routine.length > 0 && <h3>SetList</h3>}
+                <div className="musc-routine-inst">
+                    {this.state.routine.length > 0 && <h2>SetList</h2>}
                     {selectedRoutine}
                 </div>
-                <div>
-                    <Link to='/start'>
-                    {this.state.routine.length > 0 && <button>Start Workout</button>}
-                    </Link>
-                </div>
+                
             </div>
         )
     }

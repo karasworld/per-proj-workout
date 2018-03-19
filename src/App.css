@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  font-family: 'Black Ops One', cursive;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-logo {
@@ -8,10 +11,15 @@
 }
 
 .App-header {
-  background-color: #222;
   height: 150px;
-  padding: 20px;
-  color: white;
+  padding: 20px;  
+  background-color: rgb(82, 83, 83);
+  background-image: linear-gradient(black, silver, white);
+  color:rgb(71, 71, 71);
+  text-shadow: 3px 2px 1px #e6e6e6
+}
+.tag-main{
+  margin: 10px;
 }
 
 .App-title {
@@ -22,7 +30,50 @@
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+input[type=text], input[type=password] {
+  background-color: rgb(82, 83, 83);
+  color: rgb(201, 201, 201);
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+button{
+  background-color:rgb(82, 83, 83);
+  color:rgb(201, 201, 201);
+  font-size: 18px;
+}
+
+select{
+  background-color:rgb(82, 83, 83);
+  color:rgb(201, 201, 201);
+  font-size: 18px;
+}
+
+@media only screen and (min-width: 768px){
+.App-header{
+  font-size: 22px;
+  padding: 45px;
+  background-color: rgb(82, 83, 83);
+  background-image: linear-gradient(black, silver, white);
+  color:rgb(71, 71, 71);
+  text-shadow: 3px 2px 1px #e6e6e6
+}
+
+.tag-main{
+  color:rgb(71, 71, 71);
+  text-shadow: 2px 1px 1px #999999
+}
+
+input[type=text], input[type=password] {
+  font-size: 20px;
+}
+
+button{
+  font-size: 24px;
+}
+
+select{
+  font-size: 24px;
+}
+
 }

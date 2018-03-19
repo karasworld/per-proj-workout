@@ -3,3 +3,28 @@ ul{
     margin: 0;
     padding: 0;
 }
+
+@media only screen and (min-width: 768px){
+li:hover{
+    color:white;
+}
+.musc-exer-list{
+    position: relative;
+    left: 35vw;
+    top: -120vh;
+}
+.musc-exer-info{
+    position: relative;
+    bottom: 145vh;
+    right: 0vw;
+    max-width: 40vw;
+    color:rgb(192, 192, 192);
+    text-shadow: 1px 1px 1px #303030
+}
+.musc-routine-inst{
+    position: relative;
+    bottom: 240vh;
+    right: 32.5vw;
+}
+
+}

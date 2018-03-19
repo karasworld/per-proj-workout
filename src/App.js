@@ -31,8 +31,11 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to Broken</h1>
+          <div>
+            <h1>CUSTOM FIT ONLINE</h1>
+            <hr/ >
+            <h4 className="tag-main">For you, By you</h4>
+            </div>          
         </header>
         <div>
           {this.state.checkAuth && <Routes userid={this.state.userid} />}

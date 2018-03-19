@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import './RoutineComponent.css';
 
 export default class RoutineComponent extends Component{
     constructor(props){
@@ -16,13 +17,9 @@ export default class RoutineComponent extends Component{
 
     render(){
         return(
-            <div>
+            <div className="routine-main-body">
                 <div>                    
-                    <h3>{this.props.workouts.exercisename}</h3>
-                    <div>
-                {/* <button>Next</button>
-                <button>Previous</button> */}
-                    </div>
+                    <h3>{this.props.workouts.exercisename}</h3>                    
                     <div>
                         <button onClick={()=>this.props.delete(this.props.workouts.exidprime)}>
                         Remove

@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import firebase from '../../fire';
 // import ImageUpload from '../ImageUpload/ImageUpload';
 import Muscles from '../Muscles/Muscles';
+import './Profile.css';
 
 
 export default class Profile extends Component{
@@ -200,49 +201,42 @@ handleEdit(){
     render(){      
          
         return(
-            <div>
+            <div className="pro-main-body"> 
+            <div className="profile-info">              
                 <div>
-                Profile Picture: {this.state.profilepic}
+                    <h2>{this.state.name}</h2>                     
+                    <div>{this.renderNameInputField()}</div>                    
                 </div>
                 <div>
-                    <p>Name: {this.state.name}</p>                     
-                    <div>{this.renderNameInputField()}</div>
-                    
+                    <h3>{this.state.age}</h3>
+                   <div>{this.renderAgeInputField()}</div>                    
                 </div>
                 <div>
-                    <p>Age: {this.state.age}</p>
-                   <div>{this.renderAgeInputField()}</div>
-                    
+                <h3>{this.state.gender}</h3>
+                    <div>{this.renderGenderInputField()}</div>                    
                 </div>
                 <div>
-                <p>gender: {this.state.gender}</p>
-                    <div>{this.renderGenderInputField()}</div>
-                    
+                    <h4>start weight: {this.state.startweight}</h4>
                 </div>
                 <div>
-                start weight: {this.state.startweight}
-                </div>
-                <div>
-                goal weight: {this.state.goalweight}
+                    <h4>goal weight: {this.state.goalweight}</h4>               
                 </div>
                 <div>
                 {this.renderProfileButton()}
                 <button onClick={()=>this.updateUser(this.props.userid, this.state.name, this.state.age, this.state.gender)}>
                 Update Profile
                 </button>
+                <p>Click Update Profile to finalize update</p>
                 </div>
                 <div>
                 <Link to= "/">
                 <button onClick={this.signOutUser}>Sign Out</button>
                 </Link>
                 </div>
-                <div>
+                </div> 
+                <div className="profile-muscles">
                     <Muscles/>
                 </div>
-                
-                {/* <div>
-                    <ImageUpload/>
-                </div> */}
             </div>
         );
     }

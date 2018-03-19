@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
+import './ExerciseGroupComponent.css';
 
 export default function ExerciseGroupComponent(props){
     return(
-        <div>
+        <div className="exGroup-main">
             <div onClick={()=>props.exerInfo(props.workouts.id)}
             >{props.workouts.name}
             </div>
