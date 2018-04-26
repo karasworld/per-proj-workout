@@ -3,6 +3,7 @@
     width: 100vw;
     background-color: rgb(46, 46, 46);
     color: rgb(201, 201, 201);
+    text-shadow: 1px 1px 2px rgb(0, 0, 0);
     margin-top: -10px;
 }
 
@@ -15,7 +16,7 @@
         background-image: url("daniel-unsplash.jpg");
         background-repeat: no-repeat;
         background-attachment: fixed;
-        background-size: 100%;
+        background-size: 100vw;
         color:rgb(71, 71, 71);
         text-shadow: 3px 2px 1px #e6e6e6
     }

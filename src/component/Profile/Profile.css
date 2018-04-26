@@ -20,8 +20,8 @@
         position: relative;
         top: 5vh;
         font-size: 20px;
-        z-index: 15px;  
-        max-width: 25vw;         
+        z-index: 2px;  
+        width: 25vw;         
     }
     .profile-muscles{
         position: relative;
