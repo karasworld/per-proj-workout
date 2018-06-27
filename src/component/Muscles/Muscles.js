@@ -126,7 +126,7 @@ export default class Muscles extends Component{
         
 
         return(
-            <div>
+            <div className="muscle-main">
                 <div>
                    <h1>Muscle Groups</h1>
                    <h4>SELECT A MUSCLE TO WORKOUT</h4>

@@ -40,7 +40,7 @@ getUser:(req, res, next)=>{
     
     const dbInstance = req.app.get('db');
 
-    dbInstance.getUserbyID([req.params.id])
+    dbInstance.getUserByID([req.params.id])
     .then(user => res.status(200).send(user))
     .catch((err)=> { console.log(err); res.status(500).send() });
 },

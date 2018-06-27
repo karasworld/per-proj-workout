@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import firebase from '../../fire';
-// import ImageUpload from '../ImageUpload/ImageUpload';
 import Muscles from '../Muscles/Muscles';
 import './Profile.css';
 
@@ -31,7 +30,6 @@ constructor(props){
     this.handleActiveStartWeight = this.handleActiveStartWeight.bind(this);
     this.handleActiveGoalWeight = this.handleActiveGoalWeight.bind(this);
     this.handleProfilePicture = this.handleProfilePicture.bind(this);
-    this.signOutUser = this.signOutUser.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleAgeChange = this.handleAgeChange.bind(this);
     this.handleGenderChange = this.handleGenderChange.bind(this);
@@ -69,18 +67,7 @@ deactivate(id){
     .catch(console.log);
     }
 
-signOutUser() {
-    firebase.auth().signOut();
 
-    axios
-    .get('/api/signout')
-    .then(response=>{
-        console.log("Signed Out");
-        this.props.history.push("/");
-    })
-    .catch(error=>{console.log(error)
-    })    
-  }
 
     componentDidMount(){
         console.log(this.props.userid)
@@ -126,6 +113,7 @@ handleGenderChange(e){
 }
 saveProfile(){
     this.setState({name: this.state.nameEdit, age: this.state.ageEdit, gender: this.state.genderEdit, mode: 'view'});
+    
 }
 handleEdit(){
     this.setState({mode: 'edit'});
@@ -187,7 +175,7 @@ handleEdit(){
             return(
                 <button onClick={this.handleEdit}>
                     Edit Profile
-                </button>
+                </button>               
             );
         }else{
             return(
@@ -228,14 +216,10 @@ handleEdit(){
                 </button>
                 <p>Click Update Profile to finalize update</p>
                 </div>
-                <div>
-                <Link to= "/">
-                <button onClick={this.signOutUser}>Sign Out</button>
-                </Link>
-                </div>
+               
                 </div> 
                 <div className="profile-muscles">
-                    <Muscles/>
+                    {/* <Muscles/> */}
                 </div>
             </div>
         );

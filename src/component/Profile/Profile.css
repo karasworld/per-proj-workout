@@ -1,33 +1,9 @@
 .pro-main-body{
-    height: 100%;
     width: 100vw;
-    background-color: rgb(46, 46, 46);
-    color: rgb(201, 201, 201);
+    background-color: white;
+    color: rgb(71,71,71);
     margin-top: -20px;
 }
 
-@media only screen and (min-width: 768px){
-    .pro-main-body{
-        background-image: url("victor-freitas.jpg");
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-size: 100%;
-        font-size: 24px;
-        color:rgb(71, 71, 71);
-        text-shadow: 1px 1px 1px #e6e6e6
-    }
-    .profile-info{
-        position: relative;
-        top: 5vh;
-        font-size: 20px;
-        z-index: 2px;  
-        width: 25vw;         
-    }
-    .profile-muscles{
-        position: relative;
-        bottom: 42vh; 
-        left: 30vw;
-        max-width: 30vw;
-    }
 
-}
+   

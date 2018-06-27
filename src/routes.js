@@ -9,8 +9,7 @@ import Profile from './component/Profile/Profile';
 export default class Routes extends Component{
     render(){
         return(
-            <Switch>
-                
+            <Switch>                
                 <Route exact path = "/" component = {Home}/>
                 <Route
                 path="/register"

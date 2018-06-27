@@ -1,21 +1,5 @@
-.reg-main-body{
-    height: 100vh;
-    width: 100vw;
-    background-color: rgb(46, 46, 46);
-    color: rgb(201, 201, 201);
-    margin-top: -20px;
+.reg-main-body{   
+    background-color: white;
+    color: rgb(71,71,71);  
 }
 
-@media only screen and (min-width: 768px){
-    
-    .reg-main-body{
-        background-image: url("bruce-mars.jpg");
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-size: 100%;
-        font-size: 26px;
-        color:rgb(71, 71, 71);
-        text-shadow: 3px 2px 1px #e6e6e6
-    }
-    
-}

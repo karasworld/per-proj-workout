@@ -106,18 +106,16 @@ export default class Register extends Component {
           {this.state.userid && <h1>{this.state.userid}</h1>}
           <input
             type="text"
-            placeholder="email"
+            placeholder="EMAIL"
             onChange={e => this.handleEmail(e)}
-          />
-  
+          />  
           <input
             type="password"
-            placeholder="password"
+            placeholder="PASSWORD"
             onChange={(event) => {
                 this.setState({ password: event.target.value });
             }}
           />
-
           <div>
           <button onClick={this.loginUser}>Login</button>
           </div>
